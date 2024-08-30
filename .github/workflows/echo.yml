@@ -1,9 +1,7 @@
 name: Print GitHub Actions Variables
 
-on: 
-  push: 
-    branches: 
-      - main
+on:
+  workflow_dispatch:
 
 jobs:
   print-vars:
