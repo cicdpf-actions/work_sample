@@ -1,4 +1,4 @@
-name: Print GitHub Actions Variables
+name: Print GitHub Actions Variables2
 
 on:
   workflow_dispatch:
@@ -21,4 +21,5 @@ jobs:
           echo "github.event_name: ${{ github.event_name }}"
           echo "github.sha: ${{ github.sha }}"
           echo "github.ref: ${{ github.ref }}"
+          echo "github.ref: ${{ github.ref_name }}"
           echo "github.workspace: ${{ github.workspace }}"
