@@ -8,7 +8,6 @@ jobs:
     steps:
       - name: Deploy step
         run: echo "Deploying the application..."
-    continue-on-error: true
 
   post-deploy-approve:
     needs: deploy
