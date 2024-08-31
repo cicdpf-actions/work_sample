@@ -7,7 +7,7 @@ jobs:
   print-vars:
     runs-on: ubuntu-latest
     outputs:
-        test: ${{ steps.set-output-step.outputs.result }}
+      test: ${{ steps.set-output-step.outputs.result }}
 
     steps:
       - name: Set Output
@@ -20,7 +20,7 @@ jobs:
     needs: print-vars
     runs-on: ubuntu-latest
     outputs:
-        approval_status: ${{ steps.approval-step.outputs.approval_status }}
+      approval_status: ${{ steps.approval-step.outputs.approval_status }}
     environment: PROD
     steps:
       - name: Checkout code
@@ -28,16 +28,15 @@ jobs:
 
       - name: Manual Approval
         id: approval-step
-        run: echo "${{ github.event.inputs.approval }}"
-        
-        # run: |
-        #   echo "Manual approval needed"
-        #   if [[ "${{ github.event.inputs.approval }}" == "true" ]]; then
-        #     echo "approval_status=approved" >> $GITHUB_OUTPUT
-        #   else
-        #     echo "approval_status=rejected" >> $GITHUB_OUTPUT
-        #   fi
-          
+        run: |
+          echo "Manual approval needed"
+          # 手動で承認か拒否かを選択できるようにする
+          if [ "${{ github.event.inputs.approval }}" == "approve" ]; then
+            echo "approval_status=approved" >> $GITHUB_OUTPUT
+          else
+            echo "approval_status=rejected" >> $GITHUB_OUTPUT
+          fi
+
   approve:
     needs: judge
     if: ${{ needs.judge.outputs.approval_status == 'approved' }}

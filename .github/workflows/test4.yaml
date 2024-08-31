@@ -1,0 +1,34 @@
+name: Manual Approval Workflow2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Deploying to production..."
+
+  post-deploy-approve:
+    needs: deploy
+    if: ${{ needs.deploy.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post Deploy Actions
+        run: |
+          echo "Deployment was approved. Executing post-deploy actions..."
+
+  post-deploy-reject:
+    needs: deploy
+    if: ${{ needs.deploy.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Handle Rejection
+        run: |
+          echo "Deployment was rejected. Handling rejection."
