@@ -1,4 +1,4 @@
-name: Manual Approval Workflow2
+name: Manual Approval Workflow4
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
 
   post-deploy-reject:
     needs: deploy
-    if: ${{ needs.deploy.result == 'failure' }}
+    if: ${{ failure() }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection
