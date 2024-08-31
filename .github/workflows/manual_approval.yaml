@@ -14,7 +14,6 @@ jobs:
     needs: pre
     runs-on: ubuntu-latest
     environment: PROD
-    #continue-on-error: true  # ジョブが失敗してもsuccessとしてワークフローを続行してしまうのでなし 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,7 +35,8 @@ jobs:
     needs: 
       - deploy
       - pre
-    if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
+    #if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
+    if: ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection
