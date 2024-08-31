@@ -37,6 +37,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: separate-step-1
         run: readonly BBBB=2222
+             echo ${BBBB}
       
       - name: separate-step-2
         run: echo ${BBBB}
