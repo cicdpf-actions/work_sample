@@ -1,0 +1,49 @@
+name: Manual Approval Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  print-vars:
+    runs-on: ubuntu-latest
+    outputs:
+        test: ${{ steps.set-output-step.outputs.result }}
+
+    steps:
+      - name: Set Output
+        id: set-output-step
+        run: |
+          echo "result=TEST" >> $GITHUB_OUTPUT
+          echo "GITHUB_OUTPUT: $GITHUB_OUTPUT"
+
+  judge:
+    needs: print-vars
+    runs-on: ubuntu-latest
+    environment: PROD
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Manual Approval
+        id: approval-step
+        run: |
+          echo "Manual approval needed"
+          echo "::set-output name=approval_status::approved"  # 必要に応じて変更
+          
+  approve:
+    needs: judge
+    if: ${{ needs.judge.outputs.approval_status == 'approved' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: After Approval
+        run: |
+          echo "Approved! Proceeding with the workflow."
+
+  reject:
+    needs: judge
+    if: ${{ needs.judge.outputs.approval_status == 'rejected' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: After Rejection
+        run: |
+          echo "Rejected. Stopping the workflow."
