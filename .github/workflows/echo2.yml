@@ -32,7 +32,7 @@ jobs:
           echo "github.ref: ${{ github.ref_name }}"
           echo "github.workspace: ${{ github.workspace }}"
 
-  hello:
+  judge:
     needs: print-vars
     runs-on: ubuntu-latest
     environment:  PROD
@@ -47,3 +47,12 @@ jobs:
       - name: Use Output from Previous Job
         run: |
           echo " Output from print-vars job: ${{ needs.print-vars.outputs.test }} "
+
+  approve:
+    needs: judge
+    runs-on: ubuntu-latest
+    steps:
+      - name: after approve
+        run: |
+          readonly AA=2222
+          echo ${AA}
