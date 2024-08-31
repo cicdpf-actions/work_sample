@@ -50,9 +50,9 @@ https://zenn.dev/hsaki/articles/github-actions-component
 # 作業メモ
 
 <details>
-<summary>個人のメモ</summary>
+<summary>AIメモ</summary>
 
-''''yaml
+````yaml
  
 if: ${{ needs.deploy.result == 'failure' }} と if: ${{ failure() }} の違いについて説明します。
 1. if: ${{ needs.deploy.result == 'failure' }}
@@ -64,6 +64,5 @@ if: ${{ needs.deploy.result == 'failure' }} と if: ${{ failure() }} の違い�
 動作: failure() は、前のステップまたはジョブが失敗した場合に真になります。手動承認が拒否された場合も「失敗」として扱われるため、この条件で次のジョブが実行されます。
 柔軟性: この方法は、手動承認の結果が「拒否」であっても、次のジョブをトリガーするためのより確実な方法です。
 まとめ: 手動承認で「拒否」された場合でも次のジョブを確実に実行したいのであれば、if: ${{ failure() }} を使用する方が確実です。deploy.result に頼ると、手動承認の結果が「失敗」として処理されないことがあるため、期待通りに動作しないことがあります。
-
-''''
+````
 </details>
