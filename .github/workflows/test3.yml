@@ -19,6 +19,8 @@ jobs:
   judge:
     needs: print-vars
     runs-on: ubuntu-latest
+    outputs:
+        approval_status: ${{ steps.approval-step.outputs.approval_status }}
     environment: PROD
     steps:
       - name: Checkout code
@@ -28,7 +30,7 @@ jobs:
         id: approval-step
         run: |
           echo "Manual approval needed"
-          echo "::set-output name=approval_status::approved"  # 必要に応じて変更
+          echo "approval_status=approved" >>  $GITHUB_OUTPUT
           
   approve:
     needs: judge
