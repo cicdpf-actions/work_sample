@@ -1,0 +1,25 @@
+name: Manual Approval Workflow5
+
+on:
+  workflow_dispatch:
+
+jobs:
+    job1:
+      runs-on: ubuntu-latest
+      environment: PROD
+      outputs:
+        approved: ${{ steps.set-outputs.outputs.approved }}
+      steps:
+        - name: Set outputs
+          id: set-outputs
+          run: |
+            echo "approved=true" >> $GITHUB_OUTPUT
+  
+    notify-on-error:
+      runs-on: ubuntu-latest
+      needs: job1
+      if: ${{ failure() }}
+      steps:
+        - name: Handle Rejection
+          run: |
+            echo "Deployment was rejected. Handling rejection."
