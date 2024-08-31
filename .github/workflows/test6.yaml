@@ -5,7 +5,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: PROD
     continue-on-error: true  # 追加: ジョブが失敗してもワークフローを継続
     steps:
       - name: Checkout code
