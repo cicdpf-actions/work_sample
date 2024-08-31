@@ -35,7 +35,8 @@ jobs:
     needs: 
       - deploy
       - pre
-    if: ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
+    if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
+    #if: ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection
