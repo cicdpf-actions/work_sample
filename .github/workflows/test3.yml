@@ -30,7 +30,11 @@ jobs:
         id: approval-step
         run: |
           echo "Manual approval needed"
-          echo "approval_status=approved" >>  $GITHUB_OUTPUT
+          if [[ "${{ github.event.inputs.approval }}" == "true" ]]; then
+            echo "approval_status=approved" >> $GITHUB_OUTPUT
+          else
+            echo "approval_status=rejected" >> $GITHUB_OUTPUT
+          fi
           
   approve:
     needs: judge
