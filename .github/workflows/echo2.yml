@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Output
+        id: set-output-step  # idを指定
+        run: echo "result=Hello World" >> $GITHUB_OUTPUT
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -25,20 +29,20 @@ jobs:
           echo "github.ref: ${{ github.ref_name }}"
           echo "github.workspace: ${{ github.workspace }}"
 
+    outputs:
+      test: ${{ steps.set-output-step.outputs.result }}
+
   hello:
     needs: print-vars
     runs-on: ubuntu-latest
-    outputs: 
-        month: ${{ steps.step1.outputs.result }}
     steps:
-      - name: Step 1 - Run a command
-        id: step1  # idを指定
-        run: echo "result=Hello World" >> $GITHUB_ENV
       - uses: actions/checkout@v4
+
       - name: separate-step-1
         run: |
           readonly BBBB=2222
           echo ${BBBB}
-      
-      - name: separate-step-2
-        run: echo ${BBBB}
+
+      - name: Use Output from Previous Job
+        run: |
+          echo " Output from print-vars job: ${{ needs.print-vars.outputs.test }} "
