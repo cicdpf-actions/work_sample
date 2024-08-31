@@ -33,8 +33,10 @@ jobs:
           echo "Deployment was approved. Executing post-deploy actions..."
 
   post-deploy-reject:
-    needs: deploy
-    if: ${{ failure() }}
+    needs: 
+      - deploy
+      - pre
+    if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection

@@ -38,11 +38,8 @@ https://zenn.dev/ore88ore/articles/github-actions-approval-flow
 ````
 
 ### 条件分岐について
-
-
-
-- ansibleコンテナを入れたい
-- steps:usesについて
+### ansibleコンテナを入れたい
+### steps:usesについて
 
 # 参考資料
 https://zenn.dev/hsaki/articles/github-actions-component
