@@ -1,4 +1,4 @@
-name: Print GitHub Actions Variables2
+#name: Print GitHub Actions Variables2
 
 on:
   workflow_dispatch:
