@@ -12,8 +12,9 @@ jobs:
     steps:
       - name: Set Output
         id: set-output-step  # idを指定
-        run: echo "result=TEST" >> $GITHUB_OUTPUT
-
+        run: |
+          echo "result=TEST" >> $GITHUB_OUTPUT
+          echo "GITHUB_OUTPUT: $GITHUB_OUTPUT"  
       - name: Checkout code
         uses: actions/checkout@v4
 
