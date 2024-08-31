@@ -6,6 +6,7 @@ on:
 jobs:
   print-vars:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,6 +28,15 @@ jobs:
   hello:
     needs: print-vars
     runs-on: ubuntu-latest
+    outputs: 
+        month: ${{ steps.step1.outputs.result }}
     steps:
-      - run: echo "Hello, world"
+      - name: Step 1 - Run a command
+        id: step1  # idを指定
+        run: echo "result=Hello World" >> $GITHUB_ENV
       - uses: actions/checkout@v4
+      - name: separate-step-1
+        run: readonly BBBB=2222
+      
+      - name: separate-step-2
+        run: echo ${BBBB}
