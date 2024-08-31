@@ -50,9 +50,20 @@ jobs:
 
   approve:
     needs: judge
+    if: ${{ github.event.inputs.approval == 'approve' }}  # 承認されたときのみ実行
     runs-on: ubuntu-latest
     steps:
       - name: after approve
+        run: |
+          readonly AA=2222
+          echo ${AA}
+
+  reject:
+    needs: judge
+    if: ${{ github.event.inputs.approval == 'reject' }}  # 拒否されたときのみ実行
+    runs-on: ubuntu-latest
+    steps:
+      - name: after reject
         run: |
           readonly AA=2222
           echo ${AA}
