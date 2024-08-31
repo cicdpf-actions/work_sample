@@ -36,8 +36,9 @@ jobs:
         run: echo "result=Hello World" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: separate-step-1
-        run: readonly BBBB=2222
-             echo ${BBBB}
+        run: |
+          readonly BBBB=2222
+          echo ${BBBB}
       
       - name: separate-step-2
         run: echo ${BBBB}
