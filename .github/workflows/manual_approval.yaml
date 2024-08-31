@@ -1,13 +1,20 @@
-name: Manual Approval Workflow4
+name: Manual Approval Workflow
 
 on:
   workflow_dispatch:
 
 jobs:
+  pre:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, world"
+      - uses: actions/checkout@v4
+
   deploy:
+    needs: pre
     runs-on: ubuntu-latest
     environment: PROD
-    continue-on-error: true  # ジョブが失敗してもワークフローを続行 
+    #continue-on-error: true  # ジョブが失敗してもsuccessとしてワークフローを続行してしまうのでなし 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

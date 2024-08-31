@@ -1,5 +1,3 @@
-name: Manual Approval Workflow
-
 on:
   workflow_dispatch:
 
