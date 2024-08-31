@@ -6,11 +6,13 @@ on:
 jobs:
   print-vars:
     runs-on: ubuntu-latest
+    outputs:
+        test: ${{ steps.set-output-step.outputs.result }}
 
     steps:
       - name: Set Output
         id: set-output-step  # idを指定
-        run: echo "result=Hello World" >> $GITHUB_OUTPUT
+        run: echo "result=TEST" >> $GITHUB_OUTPUT
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,9 +30,6 @@ jobs:
           echo "github.ref: ${{ github.ref }}"
           echo "github.ref: ${{ github.ref_name }}"
           echo "github.workspace: ${{ github.workspace }}"
-
-    outputs:
-      test: ${{ steps.set-output-step.outputs.result }}
 
   hello:
     needs: print-vars
