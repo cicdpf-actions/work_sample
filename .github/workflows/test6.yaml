@@ -1,48 +1,36 @@
-name: Manual Approval Workflow6
 
 on:
   workflow_dispatch:
-    inputs:
-      approval:
-        description: 'Approve or Reject'
-        required: true
-        default: 'approve'
-        type: choice
-        options:
-          - approve
-          - reject
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
-    continue-on-error: true  # ジョブが失敗してもワークフローを続行
+    continue-on-error: true  # 追加: ジョブが失敗してもワークフローを継続
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Deploy
         run: |
-          if [ "${{ github.event.inputs.approval }}" == "approve" ]; then
-            echo "Approved! Deploying..."
-            # ここにデプロイメントのコマンドを追加
-          else
-            echo "Rejected! Failing the job."
-            exit 1  # ジョブを失敗させて拒否を示す
-          fi
+          echo "Deploying to production..."
+          # 実際のデプロイメントコマンドをここに追加
+          # 例: ./deploy.sh
 
   post-deploy-approve:
     needs: deploy
-    if: ${{ needs.deploy.result == 'success' }}  # deploy ジョブが成功した場合
+    if: ${{ needs.deploy.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: After Approval
-        run: echo "Approved! Proceeding with the workflow."
+        run: |
+          echo "Deployment was approved. Executing post-deploy actions."
 
   post-deploy-reject:
     needs: deploy
-    if: ${{ needs.deploy.result == 'failure' }}  # deploy ジョブが失敗した場合
+    if: ${{ needs.deploy.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection
-        run: echo "Rejected. Stopping the workflow."
+        run: |
+          echo "Deployment was rejected. Handling rejection."
