@@ -33,10 +33,11 @@ jobs:
 
   post-deploy-reject:
     needs: 
-      - deploy
       - pre
+      - deploy
     #if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
-    if: ${{ failure() }} && ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
+    #if: ${{ failure() }} && ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
+    if: ${{ needs.deploy.result == 'failure' && needs.pre.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Handle Rejection
