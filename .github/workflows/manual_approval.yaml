@@ -35,8 +35,8 @@ jobs:
     needs: 
       - pre
       - deploy
-    if: ${{ needs.pre.result == 'success' && failure() }} 
     #これがなぜか正しい
+    if: ${{ needs.pre.result == 'success' && failure() }} 
     #if: ${{ failure() }} && ${{ needs.pre.result == 'success' }}
     #if: ${{ failure() }} && ${{ needs.deploy.result == 'failure' }} && ${{ needs.pre.result == 'success' }}
     #if: ${{ needs.deploy.result == 'failure' && needs.pre.result == 'success' }}
