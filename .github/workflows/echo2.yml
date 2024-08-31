@@ -23,3 +23,10 @@ jobs:
           echo "github.ref: ${{ github.ref }}"
           echo "github.ref: ${{ github.ref_name }}"
           echo "github.workspace: ${{ github.workspace }}"
+
+  hello:
+    needs: print-vars
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, world"
+      - uses: actions/checkout@v4
