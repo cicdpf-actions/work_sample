@@ -2,7 +2,7 @@ name: command
 on: push
 jobs:
   command:
-    name: Use Linux commands
+    name: Uses sample
     runs-on: ubuntu-20.04
     steps:
       - name: Show ubuntu details
