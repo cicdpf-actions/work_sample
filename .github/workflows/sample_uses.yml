@@ -1,4 +1,4 @@
-name: command
+name: Uses sample
 on: push
 jobs:
   command:
