@@ -15,13 +15,13 @@ jobs:
           # 使いたいactionがあるorganization/repositoryをcheckoutする対象に指定
           repository: cicdpf-actions/other_repo_test
           # branch名だけでなくtagやcommit hashなど取得元を一意に特定できるものなら何でもok
-          ref: main
+          ref: master
           # 取得したアクションをこのリポジトリのどこのディレクトリに持ってくるか決める
           path: .github/actions/other-repository
           # private repoのactionを使う時のみ必要。
           # ここで使うtokenはsecrets.GITHUB_TOKENでは不可
           token: ${{ secrets.ACCESS_TOKEN }}
-          
+
       - name: Use the action in the other repository
       #checkout時にpathで指定した場所 + 使用するactionの場所をつなげて記述する
       # ディレクトリを指定しているので./から始める必要がある点に注意
