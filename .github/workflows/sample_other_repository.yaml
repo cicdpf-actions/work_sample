@@ -21,6 +21,7 @@ jobs:
           # private repoのactionを使う時のみ必要。
           # ここで使うtokenはsecrets.GITHUB_TOKENでは不可
           token: ${{ secrets.ACCESS_TOKEN }}
+          
       - name: Use the action in the other repository
       #checkout時にpathで指定した場所 + 使用するactionの場所をつなげて記述する
       # ディレクトリを指定しているので./から始める必要がある点に注意
