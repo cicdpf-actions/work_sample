@@ -1,0 +1,37 @@
+name: example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  use-other-action:
+    name: Use other action from this repository
+    runs-on: ubuntu-latest
+    steps:
+      # まずcheckoutして他のリポジトリの内容を持ってくる
+      - name: Checkout other repository
+        uses: actions/checkout@v3
+        with:
+          # 使いたいactionがあるorganization/repositoryをcheckoutする対象に指定
+          repository: cicdpf-actions/other_repo_test
+          # branch名だけでなくtagやcommit hashなど取得元を一意に特定できるものなら何でもok
+          ref: master
+          path: other_repo_test
+          # 取得したアクションをこのリポジトリのどこのディレクトリに持ってくるか決める
+          #path: .github/actions/other-repository
+          #path: .
+          ## private repoのactionを使う時のみ必要。
+          ## ここで使うtokenはsecrets.GITHUB_TOKENでは不可
+          #token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Use the action in the other repository
+      #checkout時にpathで指定した場所 + 使用するactionの場所をつなげて記述する
+      # ディレクトリを指定しているので./から始める必要がある点に注意
+        uses: cicdpf-actions/other_repo_test/.github/actions@master
+
+        #uses: .
+        with:
+        # 引数は好きに渡せる
+          message: "Any args can be passed to the action"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # ここで使うgithub tokenはsecrets.GITHUB_TOKENでok

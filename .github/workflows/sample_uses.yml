@@ -1,8 +1,9 @@
-name: command
-on: push
+name: Uses sample
+on:
+  workflow_dispatch:
 jobs:
   command:
-    name: Use Linux commands
+    name: Uses sample
     runs-on: ubuntu-20.04
     steps:
       - name: Show ubuntu details
