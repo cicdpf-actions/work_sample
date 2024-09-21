@@ -15,7 +15,7 @@ jobs:
           # 使いたいactionがあるorganization/repositoryをcheckoutする対象に指定
           repository: cicdpf-actions/other_repo_test
           # branch名だけでなくtagやcommit hashなど取得元を一意に特定できるものなら何でもok
-          ref: feature
+          ref: master
           path: other_repo_test
           # 取得したアクションをこのリポジトリのどこのディレクトリに持ってくるか決める
           #path: .github/actions/other-repository
