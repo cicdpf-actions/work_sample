@@ -1,5 +1,6 @@
 name: Uses sample
-on: push
+on:
+  workflow_dispatch:
 jobs:
   command:
     name: Uses sample
