@@ -10,7 +10,7 @@ jobs:
     steps:
       # まずcheckoutして他のリポジトリの内容を持ってくる
       - name: Checkout other repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           # 使いたいactionがあるorganization/repositoryをcheckoutする対象に指定
           repository: cicdpf-actions/other_repo_test
