@@ -16,6 +16,7 @@ jobs:
           repository: cicdpf-actions/other_repo_test
           # branch名だけでなくtagやcommit hashなど取得元を一意に特定できるものなら何でもok
           ref: feature
+          path: other_repo_test
           # 取得したアクションをこのリポジトリのどこのディレクトリに持ってくるか決める
           #path: .github/actions/other-repository
           #path: .
