@@ -22,4 +22,4 @@ jobs:
           echo "GITHUB_SHA: $GITHUB_SHA"
           echo "GITHUB_REF: $GITHUB_REF"
           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
-          ls -al ${{github.workspace}}
+          ls -al ${{github.workspace}}/sql
