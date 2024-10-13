@@ -2,6 +2,7 @@ name: Flayway Container
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   pre:
