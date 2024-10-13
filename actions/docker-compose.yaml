@@ -17,7 +17,7 @@ services:
 
   flyway:
     build: ./flyway
-    command: sh -c "flyway info"
+    command: sh -c "ls -al && flyway info"
     volumes:
       - ./flyway/sql:/flyway/sql
       - ./flyway/conf:/flyway/conf
