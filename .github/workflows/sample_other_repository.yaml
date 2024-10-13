@@ -28,8 +28,6 @@ jobs:
       #checkout時にpathで指定した場所 + 使用するactionの場所をつなげて記述する
       # ディレクトリを指定しているので./から始める必要がある点に注意
         uses: cicdpf-actions/other_repo_test/.github/actions@master
-
-        #uses: .
         with:
         # 引数は好きに渡せる
           message: "Any args can be passed to the action"

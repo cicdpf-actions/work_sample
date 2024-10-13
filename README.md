@@ -90,7 +90,7 @@ actions/checkout@v4を実行すると以下の処理が実行される
 - **`d80fa38004cc91eccc67e5b3bba6bdf4bff99b59`** は特定のコミットハッシュです。このコミットをリモートの `origin/main` ブランチに対応するリファレンスにフェッチします。
   - `+` は強制的な更新（フォースフェッチ）を意味します。リモートリポジトリで変更された場合、ローカルでも強制的にその変更を反映させます。
 
-### コマンドの全体的な意味
+#### コマンドの全体的な意味
 このコマンドは、リモートリポジトリ（`origin`）から最新のコミット1つ（`d80fa38004cc91eccc67e5b3bba6bdf4bff99b59`）を、サブモジュールやタグをフェッチせずに、ローカルの `origin/main` ブランチに強制的に反映しようとしています。また、リモートリポジトリで削除された参照もローカルから削除します。
 
 ↓対象ブランチのディレクトリ・ファイルを確認
@@ -99,7 +99,17 @@ actions/checkout@v4を実行すると以下の処理が実行される
 # 参考資料
 https://zenn.dev/hsaki/articles/github-actions-component
 
+
+### composite actionについて
+https://tsgcpp.hateblo.jp/entry/2022/09/25/135115
+
+
+
+
+
 # 作業メモ
+
+
 
 <details>
 <summary>AIメモ</summary>
