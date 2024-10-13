@@ -1,19 +1,5 @@
 version: '3'
-
-x-template: &flyway-cmd
-  build: ./flyway
-  volumes:
-    - ./flyway/sql:/flyway/sql
-    - ./flyway/conf:/flyway/conf
-  depends_on:
-    - mysql
-  profiles:
-    - flyway
-  networks:
-    - net
-
 services:
-
   mysql:
     build: ./mysql
     container_name: mysql
@@ -29,17 +15,18 @@ services:
     networks:
       - net
 
-  flyway-baseline:
-    <<: *flyway-cmd
-    command: baseline
-
-  flyway-migrate:
-    <<: *flyway-cmd
-    command: migrate
-
-  flyway-info:
-    <<: *flyway-cmd
-    command: info
+  flyway:
+    build: ./flyway
+    command: sh -c "flyway info"
+    volumes:
+      - ./flyway/sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+    depends_on:
+      - mysql
+    profiles:
+      - flyway
+    networks:
+      - net
 
 networks:
   net:
