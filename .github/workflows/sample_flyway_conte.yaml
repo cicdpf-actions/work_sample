@@ -1,0 +1,14 @@
+name: Flayway Container
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pre:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout other repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: docker compose -f /actions/docker-compose.yaml up -d

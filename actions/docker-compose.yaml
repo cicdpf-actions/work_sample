@@ -1,0 +1,45 @@
+version: '3'
+
+x-template: &flyway-cmd
+  build: ./flyway
+  volumes:
+    - ./flyway/sql:/flyway/sql
+    - ./flyway/conf:/flyway/conf
+  depends_on:
+    - mysql
+  profiles:
+    - flyway
+  networks:
+    - net
+
+services:
+
+  mysql:
+    build: ./mysql
+    container_name: mysql
+    platform: linux/x86_64
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - net
+
+  flyway-baseline:
+    <<: *flyway-cmd
+    command: baseline
+
+  flyway-migrate:
+    <<: *flyway-cmd
+    command: migrate
+
+  flyway-info:
+    <<: *flyway-cmd
+    command: info
+
+networks:
+  net:
