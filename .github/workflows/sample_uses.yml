@@ -5,7 +5,7 @@ jobs:
   command:
     name: Uses sample
     #runs-on: ubuntu-20.04
-    runs-on: example-runnerdeploy-nc7qr-ffm45
+    runs-on: self-hosted
     steps:
       - name: Show ubuntu details
         run: lsb_release -a
