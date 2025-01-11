@@ -18,5 +18,23 @@ jobs:
       - name: Test
         run: kubectl version --client
 
+  verify-images2:
+    name: Verify images for helm and k8s
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Verify Helm and Kubectl in Docker
+        uses: docker://dtzar/helm-kubectl:3.16.4
+        with:
+          args: |
+            sh -c "
+              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+              kubectl version --client:
+              helm version
+            "
+      - name: Test
+        run: |
+          kubectl version --client
+          helm version
+
 
 
