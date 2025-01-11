@@ -6,8 +6,8 @@ on:
 jobs:
   verify-images:
     name: Verify images for helm and k8s
-    runs-on: ubuntu-20.04
-    container: ubuntu:20.04
+    runs-on: ubuntu-latest
+    container: alpine:3.14 
     steps:
       - name: Verify Helm and Kubectl in Docker
         uses: docker://line/kubectl-kustomize:1.31.0-5.5.0
@@ -23,7 +23,8 @@ jobs:
   verify-images2:
     name: Verify images for helm and k8s 2
     needs: verify-images
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container: alpine:3.14 
     steps:
       - name: Verify Helm and Kubectl in Docker
         uses: docker://dtzar/helm-kubectl:3.16.4
@@ -33,3 +34,18 @@ jobs:
           kubectl version --client
           helm version
 
+  verify-images3:
+    name: Verify images for helm and k8s 3
+    needs: verify-images2
+    runs-on: ubuntu-latest
+    container: alpine:3.14 
+    steps:
+      - name: Verify Helm and Kubectl in Docker
+        uses: docker://dtzar/helm-kubectl:3.16.4
+        with:
+          args: |
+            sh -c "
+              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+              kubectl version --client;
+              helm version;
+            "
