@@ -1,0 +1,22 @@
+name: Verify Helm and Kubectl
+
+on:
+  workflow_dispatch:
+
+jobs:
+  verify-images:
+    name: Verify images for helm and k8s
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Verify Helm and Kubectl in Docker
+        uses: docker://line/kubectl-kustomize:1.31.0-5.5.0
+        with:
+          args: |
+            sh -c "
+              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+              helm version;
+              kubectl version --client;
+            "
+
+
+
