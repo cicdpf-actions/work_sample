@@ -14,7 +14,6 @@ jobs:
           args: |
             sh -c "
               echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
-              helm version;
             "
       - name: Test
         run: kubectl version --client
