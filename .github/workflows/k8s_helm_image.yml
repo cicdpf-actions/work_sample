@@ -4,11 +4,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  verify-images3:
-    name: Verify images for helm and k8s 3
-    runs-on: ubuntu-latest
-    container: ubuntu:20.04 
+  verify-images:
+    name: Verify images for helm and k8s
+    runs-on: ubuntu-20.04
+    container: ubuntu:20.04
     steps:
+      - name: Verify Helm and Kubectl in Docker
+        uses: docker://line/kubectl-kustomize:1.31.0-5.5.0
+        with:
+          args: |
+            sh -c "
+              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+            "
+      - name: Test
+        run: kubectl version --client
+
+  verify-images2:
+    name: Verify images for helm and k8s 2
+    needs: verify-images
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Verify Helm and Kubectl in Docker
+        uses: docker://dtzar/helm-kubectl:3.16.4
+
       - name: Test
         run: |
           kubectl version --client
