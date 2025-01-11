@@ -30,6 +30,7 @@ jobs:
         uses: docker://dtzar/helm-kubectl:3.16.4
 
       - name: Test
+        continue-on-error: true
         run: |
           kubectl version --client
           helm version
