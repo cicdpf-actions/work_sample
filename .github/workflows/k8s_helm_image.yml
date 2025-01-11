@@ -6,7 +6,7 @@ on:
 jobs:
   verify-images3:
     name: Verify images for helm and k8s 3
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Test
         run: |
