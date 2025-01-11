@@ -24,17 +24,18 @@ jobs:
     steps:
       - name: Verify Helm and Kubectl in Docker
         uses: docker://dtzar/helm-kubectl:3.16.4
-        with:
-          args: |
-            sh -c "
-              echo 'Running inside Docker image ldtzar/helm-kubectl:3.16.4';
-              kubectl version --client;
-              helm version;
-            "
+
       - name: Test
         run: |
           kubectl version --client
           helm version
 
-
+  verify-images3:
+    name: Verify images for helm and k8s 2
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Test
+        run: |
+          kubectl version --client
+          helm version
 
