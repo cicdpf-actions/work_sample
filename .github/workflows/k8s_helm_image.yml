@@ -27,7 +27,7 @@ jobs:
         with:
           args: |
             sh -c "
-              echo 'Running inside Docker image ldtzar/helm-kubectl:3.16.4;
+              echo 'Running inside Docker image ldtzar/helm-kubectl:3.16.4';
               kubectl version --client;
               helm version;
             "
