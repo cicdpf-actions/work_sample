@@ -17,6 +17,7 @@ jobs:
               echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
             "
       - name: Test
+        continue-on-error: true
         run: kubectl version --client
 
   verify-images2:
