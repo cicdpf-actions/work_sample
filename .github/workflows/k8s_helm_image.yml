@@ -20,6 +20,7 @@ jobs:
 
   verify-images2:
     name: Verify images for helm and k8s 2
+    needs: verify-images
     runs-on: ubuntu-20.04
     steps:
       - name: Verify Helm and Kubectl in Docker
@@ -31,7 +32,8 @@ jobs:
           helm version
 
   verify-images3:
-    name: Verify images for helm and k8s 2
+    name: Verify images for helm and k8s 3
+    needs: verify-images2
     runs-on: ubuntu-20.04
     steps:
       - name: Test
