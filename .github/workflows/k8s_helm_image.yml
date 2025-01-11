@@ -50,3 +50,16 @@ jobs:
               kubectl version --client;
               helm version;
             "
+
+  npm-test:
+    name: Test npm
+    runs-on: ubuntu-latest
+    container: alpine:3.14
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - name: Test Node.js
+        run: node -v
+
