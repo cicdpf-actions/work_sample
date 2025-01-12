@@ -52,7 +52,7 @@ jobs:
             "
 
   custom-actions:
-    name: Test npm
+    name: Test custom-actions
     runs-on: ubuntu-latest
     container: alpine:3.14
     steps:
@@ -65,7 +65,8 @@ jobs:
           kubectl version --client
           helm version
           find .
-          cp -r . ./backup
+          mkdir backup
+          cp -r . backup
 
                             
   npm-test:
