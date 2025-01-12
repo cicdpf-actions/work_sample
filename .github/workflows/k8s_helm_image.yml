@@ -65,8 +65,10 @@ jobs:
           kubectl version --client
           helm version
           find .
+          pwd
+          touch sample.txt
           mkdir backup
-          cp -r . backup
+          cp sample.txt backup/
 
                             
   npm-test:
