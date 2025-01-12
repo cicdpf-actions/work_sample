@@ -51,6 +51,23 @@ jobs:
               helm version;
             "
 
+  custom-actions:
+    name: Test npm
+    runs-on: ubuntu-latest
+    container: alpine:3.14
+    steps:
+      - name: Setup helm
+        uses: azure/setup-helm@v4
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+      - name: Test
+        run: |
+          kubectl version --client
+          helm version
+          find .
+          cp -r . ./backup
+
+                            
   npm-test:
     name: Test npm
     runs-on: ubuntu-latest
