@@ -113,14 +113,13 @@ jobs:
     steps:
       - name: Test SSH connection
         run: |
-          # カンマ区切りのIPリストを改行区切りに変換して処理
           echo "$IP_LIST" | tr ',' '\n' | while read ip; do
             echo "Connecting to $ip"
             sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@$ip << 'EOF'
-            echo "Starting multiple commands"
-            cd /home
-            ls -la
-            whoami
-            echo "Commands completed"
-            EOF
+          echo "Starting multiple commands"
+          cd /home
+          ls -la
+          whoami
+          echo "Commands completed"
+          EOF
           done
