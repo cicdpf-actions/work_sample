@@ -2,11 +2,11 @@ name: Verify Helm and Kubectl
 
 on:
   workflow_dispatch:
-    inputs:
-      ip :
-        type: string
-        required: true
-        description: ' Public ip'
+    # inputs:
+    #   ip :
+    #     type: string
+    #     required: true
+    #     description: ' Public ip'
 
 
 jobs:
@@ -108,13 +108,19 @@ jobs:
   ssh-test:
     name: Test ssh
     runs-on: ubuntu-latest
+    env:
+      IP_LIST: "13.230.185.97,54.249.56.55" # 複数のIPをカンマ区切りで設定
     steps:
       - name: Test SSH connection
         run: |
-          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }} << 'EOF'
-          echo "Starting multiple commands"
-          cd /home
-          ls -la
-          whoami
-          echo "Commands completed"
-          EOF
+          # カンマ区切りのIPリストを改行区切りに変換して処理
+          echo "$IP_LIST" | tr ',' '\n' | while read ip; do
+            echo "Connecting to $ip"
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@$ip << 'EOF'
+            echo "Starting multiple commands"
+            cd /home
+            ls -la
+            whoami
+            echo "Commands completed"
+            EOF
+          done
