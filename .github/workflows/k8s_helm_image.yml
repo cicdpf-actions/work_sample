@@ -2,54 +2,60 @@ name: Verify Helm and Kubectl
 
 on:
   workflow_dispatch:
+    inputs:
+      ip :
+        type: string
+        required: true
+        description: ' Public ip'
+
 
 jobs:
-  verify-images:
-    name: Verify images for helm and k8s
-    runs-on: ubuntu-latest
-    container: alpine:3.14 
-    steps:
-      - name: Verify Helm and Kubectl in Docker
-        uses: docker://line/kubectl-kustomize:1.31.0-5.5.0
-        with:
-          args: |
-            sh -c "
-              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
-            "
-      - name: Test
-        continue-on-error: true
-        run: kubectl version --client
+  # verify-images:
+  #   name: Verify images for helm and k8s
+  #   runs-on: ubuntu-latest
+  #   container: alpine:3.14 
+  #   steps:
+  #     - name: Verify Helm and Kubectl in Docker
+  #       uses: docker://line/kubectl-kustomize:1.31.0-5.5.0
+  #       with:
+  #         args: |
+  #           sh -c "
+  #             echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+  #           "
+  #     - name: Test
+  #       continue-on-error: true
+  #       run: kubectl version --client
 
-  verify-images2:
-    name: Verify images for helm and k8s 2
-    needs: verify-images
-    runs-on: ubuntu-latest
-    container: alpine:3.14 
-    steps:
-      - name: Verify Helm and Kubectl in Docker
-        uses: docker://dtzar/helm-kubectl:3.16.4
+  # verify-images2:
+  #   name: Verify images for helm and k8s 2
+  #   needs: verify-images
+  #   runs-on: ubuntu-latest
+  #   container: alpine:3.14 
+  #   steps:
+  #     - name: Verify Helm and Kubectl in Docker
+  #       uses: docker://dtzar/helm-kubectl:3.16.4
 
-      - name: Test
-        continue-on-error: true
-        run: |
-          kubectl version --client
-          helm version
+  #     - name: Test
+  #       continue-on-error: true
+  #       run: |
+  #         kubectl version --client
+  #         helm version
 
-  verify-images3:
-    name: Verify images for helm and k8s 3
-    needs: verify-images2
-    runs-on: ubuntu-latest
-    container: alpine:3.14 
-    steps:
-      - name: Verify Helm and Kubectl in Docker
-        uses: docker://dtzar/helm-kubectl:3.16.4
-        with:
-          args: |
-            sh -c "
-              echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
-              kubectl version --client;
-              helm version;
-            "
+  # verify-images3:
+  #   name: Verify images for helm and k8s 3
+  #   needs: verify-images2
+  #   runs-on: ubuntu-latest
+  #   container: alpine:3.14 
+  #   steps:
+  #     - name: Verify Helm and Kubectl in Docker
+  #       uses: docker://dtzar/helm-kubectl:3.16.4
+  #       with:
+  #         args: |
+  #           sh -c "
+  #             echo 'Running inside Docker image line/kubectl-kustomize:1.31.0-5.5.0';
+  #             kubectl version --client;
+  #             helm version;
+  #           "
 
   custom-actions:
     name: Test custom-actions
@@ -71,15 +77,24 @@ jobs:
           cp sample.txt backup/
 
                             
-  npm-test:
-    name: Test npm
-    runs-on: ubuntu-latest
-    container: alpine:3.14
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 16
-      - name: Test Node.js
-        run: node -v
+  # npm-test:
+  #   name: Test npm
+  #   runs-on: ubuntu-latest
+  #   container: alpine:3.14
+  #   steps:
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 16
+  #     - name: Test Node.js
+  #       run: node -v
 
+  ssh-test:
+    name: Test ssh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test ssh
+        run: |
+          ssh root@${{ inputs.ip }}
+          pwd
+          ls -al 
