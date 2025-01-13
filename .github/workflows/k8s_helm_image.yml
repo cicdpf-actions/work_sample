@@ -97,7 +97,10 @@ jobs:
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }}
-          hostname
-          pwd
-          ls -al 
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }} << 'EOF'
+          echo "Starting multiple commands"
+          cd /home
+          ls -la
+          whoami
+          echo "Commands completed"
+          EOF
