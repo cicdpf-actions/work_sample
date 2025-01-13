@@ -93,8 +93,11 @@ jobs:
     name: Test ssh
     runs-on: ubuntu-latest
     steps:
-      - name: Test ssh
+      - name: Test SSH connection
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          ssh root@${{ inputs.ip }}
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }}
+          hostname
           pwd
           ls -al 
