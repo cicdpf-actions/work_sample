@@ -89,15 +89,29 @@ jobs:
   #     - name: Test Node.js
   #       run: node -v
 
+  # ssh-test:
+  #   name: Test ssh
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Test SSH connection
+  #       env:
+  #         SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+  #       run: |
+  #         sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }} << 'EOF'
+  #         echo "Starting multiple commands"
+  #         cd /home
+  #         ls -la
+  #         whoami
+  #         echo "Commands completed"
+  #         EOF
+
   ssh-test:
     name: Test ssh
     runs-on: ubuntu-latest
     steps:
       - name: Test SSH connection
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }} << 'EOF'
+          sshpass -p ${{ secrets.SSH_PASSWORD }} ssh -o StrictHostKeyChecking=no root@${{ inputs.ip }} << 'EOF'
           echo "Starting multiple commands"
           cd /home
           ls -la
