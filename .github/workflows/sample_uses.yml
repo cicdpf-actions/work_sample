@@ -8,20 +8,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Show ubuntu details
-        run: lsb_release -a
-      - name: Inspect files before checkout
-        run: ls -la
-      - name: show current directory before checkout
-        run: pwd
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Inspect files after checkout
         run: |
-          ls -la
-          cd .github/workflows
-          ls -la
-
-      - name: show current directory after checkout
-        run: pwd
-      - name: show all branches after checkout
-        run: git branch -a
+          echo '::group::CLIツールから出力されたログ'
+          echo '::notice title=入力値のチェック::入力値をチェックします'
+          echo '::warning::これはwarningのログです'
+          echo '::error::これはerrorログです'
+          echo '::error title=CLIツールが異常終了しました::エラーが発生したので処理を中断します'
+          echo '::endgroup::'
